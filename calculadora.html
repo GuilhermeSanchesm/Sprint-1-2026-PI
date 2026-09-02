@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zymos - Calculadora da Cervejaria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calculadora da Cervejaria</h1>
+    
+    <p>Informe qual o tipo de cerveja que você produz:</p>
+    <select id="tipo_cerveja">
+        <option value="">Selecione</option>
+        <option value="Ale">Ale</option>
+        <option value="Lager">Lager</option>
+    </select><br><br>
+
+    <p>Digite a produção anual da cervejaria (em litros):</p>
+    <input type="number" id="producao" placeholder="Ex: 5000"><br><br>
+
+    <p>Informe o seu preço de venda por litro (Opcional):</p>
+    <input type="number" id="preco_usuario" placeholder="Ex: 12"><br><br>
+
+    <button onclick="calcular()">Calcular</button><br><br>
+
+    <div id="resultado"></div>
+
+    <script>
+        let percentualPerda = 0.05;
+        let percentualRecuperacao = 0.98;
+        let tamanhoGarrafa = 0.33;
+
+        function calcular() {
+            // Pegando os dados direto pelo ID do HTML
+            let totalProducao = producao.value;
+            let tipoSelected = tipo_cerveja.value;
+            let precoInput = preco_usuario.value;
+
+            // Se o usuário esqueceu de selecionar o tipo ou digitar a produção
+            if (tipoSelected == "" || totalProducao == "") {
+                resultado.innerHTML = "Por favor, preencha todos os campos obrigatórios!";
+            } else {
+                let precoLitro = 0;
+
+                // Descobrindo qual preço usar
+                if (precoInput != "") {
+                    precoLitro = Number(precoInput);
+                } else {
+                    if (tipoSelected == "Ale") {
+                        precoLitro = 12; 
+                    } else if (tipoSelected == "Lager") {
+                        precoLitro = 8;  
+                    }
+                }
+
+                // Operações matemáticas básicas
+                let perda = totalProducao * percentualPerda;
+                let recuperado = perda * percentualRecuperacao;
+                let garrafas = recuperado / tamanhoGarrafa;
+                let dinheiro = recuperado * precoLitro;
+
+                // Uma única variável para guardar o texto final
+                let mensagem = "Tipo: " + tipoSelected + "<br>" +
+                               "Preço do litro: R$ " + precoLitro + "<br>" +
+                               "Produção: " + totalProducao + "L<br>" +
+                               "Perda: " + perda + "L<br>" +
+                               "Recuperado: " + recuperado + "L<br>" +
+                               "Garrafas: " + garrafas.toFixed(0) + "<br>" +
+                               "Economia: R$ " + dinheiro.toFixed(2);
+
+                // Mostra a mensagem na tela
+                resultado.innerHTML = mensagem;
+            }
+        }
+    </script>
+</body>
+</html>
