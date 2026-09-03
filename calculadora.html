@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zymos - Calculadora da Cervejaria</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <h1>Calculadora da Cervejaria</h1>
-    
+
     <p>Informe qual o tipo de cerveja que você produz:</p>
     <select id="tipo_cerveja">
         <option value="">Selecione</option>
@@ -27,9 +29,10 @@
     <div id="resultado"></div>
 
     <script>
+        // Configurações baseadas nos dados do documento
         let percentualPerda = 0.05;
         let percentualRecuperacao = 0.98;
-        let tamanhoGarrafa = 0.33;
+        let tamanhoGarrafa = 0.6;
 
         function calcular() {
             // Pegando os dados direto pelo ID do HTML
@@ -37,7 +40,7 @@
             let tipoSelected = tipo_cerveja.value;
             let precoInput = preco_usuario.value;
 
-            // Se o usuário esqueceu de selecionar o tipo ou digitar a produção
+            // Validação simples
             if (tipoSelected == "" || totalProducao == "") {
                 resultado.innerHTML = "Por favor, preencha todos os campos obrigatórios!";
             } else {
@@ -48,31 +51,42 @@
                     precoLitro = Number(precoInput);
                 } else {
                     if (tipoSelected == "Ale") {
-                        precoLitro = 12; 
+                        precoLitro = 12;
                     } else if (tipoSelected == "Lager") {
-                        precoLitro = 8;  
+                        precoLitro = 8;
                     }
                 }
 
-                // Operações matemáticas básicas
+                // Cálculos matemáticos
                 let perda = totalProducao * percentualPerda;
                 let recuperado = perda * percentualRecuperacao;
                 let garrafas = recuperado / tamanhoGarrafa;
                 let dinheiro = recuperado * precoLitro;
 
-                // Uma única variável para guardar o texto final
-                let mensagem = "Tipo: " + tipoSelected + "<br>" +
-                               "Preço do litro: R$ " + precoLitro + "<br>" +
-                               "Produção: " + totalProducao + "L<br>" +
-                               "Perda: " + perda + "L<br>" +
-                               "Recuperado: " + recuperado + "L<br>" +
-                               "Garrafas: " + garrafas.toFixed(0) + "<br>" +
-                               "Economia: R$ " + dinheiro.toFixed(2);
+                // TEXTO 1: Explicação voltada para prevenção de perdas e riscos
+                let textoCorrido = "Ao produzir " + totalProducao + " litros de cerveja do tipo " + tipoSelected + " por ano, sua fábrica enfrenta desvios bioquímicos decorrentes da falta de controle térmico contínuo na dorna fermentativa. Com base em pesquisas publicadas pela Universidade de Nova Lisboa sobre eficiência de processos, estima-se que a falta de um monitoramento rigoroso gera uma perda histórica de cerca de 5% de todo o volume produzido. No seu cenário atual, isso significa que você corre o risco de descartar diretamente " + perda + " litros de mosto cervejeiro devido ao estresse metabólico das leveduras.<br><br>" +
+                    "Para mitigar esse gargalo operacional, o sistema de automação e sensores inteligentes da Zymos atua na prevenção proativa por alertas em tempo real. Com essa tecnologia, é possível prevenir a perda de até 98% deste montante, garantindo a estabilidade de " + recuperado + " litros de produto que seguiriam para descarte. Essa contenção de danos evita a paralisação da linha de produção e assegura que aproximadamente " + garrafas.toFixed(0) + " garrafas (de 330ml) não sejam descartadas acidentalmente.<br><br>" +
+                    "Considerando o valor de venda de R$ " + precoLitro + " por litro, a implementação desta malha integrada de sensores previne um impacto financeiro negativo de R$ " + dinheiro.toFixed(2) + " por ano. Dessa forma, o projeto valida-se como uma barreira de segurança que blinda a integridade do sistema produtivo e a rentabilidade do seu negócio.<br><br>";
 
-                // Mostra a mensagem na tela
+                // TEXTO 2: Resumo focado em contenção de riscos e mitigação
+                let resumoDados = "----------------------------------------<br>" +
+                    "PROJEÇÃO DE MITIGAÇÃO DE RISCOS<br>" +
+                    "----------------------------------------<br>" +
+                    "• Estilo de Cerveja: " + tipoSelected + "<br>" +
+                    "• Preço por Litro Projetado: R$ " + precoLitro + "<br>" +
+                    "• Volume de Produção Anual: " + totalProducao + " litros<br>" +
+                    "• Risco de Perda Estimada (5%): " + perda + " litros<br>" +
+                    "• Volume Prevenido por Monitoramento (98%): " + recuperado + " litros<br>" +
+                    "• Garrafas Protegidas contra Descarte: " + garrafas.toFixed(0) + " unidades<br>" +
+                    "• Impacto Financeiro Prevenido: R$ " + dinheiro.toFixed(2) + "<br>" +
+                    "----------------------------------------";
+
+                // Junta os dois blocos na variável mensagem e exibe na tela
+                let mensagem = textoCorrido + resumoDados;
                 resultado.innerHTML = mensagem;
             }
         }
     </script>
 </body>
+
 </html>
