@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zymos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container-principal">
+
+        <h1>
+            Calculadora - Zymos
+        </h1>
+
+        <p>Informe quantos litros de cerveja sua empresa produz por ano:</p> <input type="number" id="ipt_n1"> <br>
+        <p>Infrome o valor da unidade da garrafa:</p> <input type="number" id="ipt_n2"> <br><br>
+        <button onclick="calcularAnaliseFinanceiro()">Ver análise financeira</button>
+        <br><br>
+        <div id="div_exibir"></div>
+    </div>
+
+</body>
+
+<script>
+
+    // perda de 5% da produção
+    let percentualPerda = 0.05;
+
+    // eficiencia do sistema Zymus
+    let percentualRecuperacao = 0.98;
+
+    // tamanho de 600ml da garrafa
+    let tamanhoGarrafa = 600;
+
+
+
+
+    function calcularAnaliseFinanceiro() {
+
+        let n1 = Number(ipt_n1.value);
+        let n2 = Number(ipt_n2.value);
+
+        //transformando litros em mililitros = transformando o volume total produzido (L) em (ml)
+        let conversaoMl = (n1 * 1000);
+
+        // quantas garrafas de 600ml cabem no volume total
+        let qntGarrafas = (conversaoMl / tamanhoGarrafa);
+
+        // representas quantas garrafas estão  sendo perdidas
+        let garrafasPerdidas = (qntGarrafas * 0.05);
+
+        // valor perdido em reais  
+        let prejuizoFinanceiro = (garrafasPerdidas * n2);
+
+        // garrafas recuperadas com o Zymos
+        let garrafasRecuperadas = (garrafasPerdidas * 0.98);
+
+        // valor das garrafas recuperadas em reais
+        let economiaFinanceira = (garrafasRecuperadas * n2);
+
+
+        let mensagem1 = `Sua empresa produz ${qntGarrafas.toFixed(0)} garrafas por ano.`;
+
+        let mensagem2 = `Sem o ZYMOS, ${garrafasPerdidas.toFixed(0)} garrafas podem ser perdidas, representando um prejuízo de R$ ${prejuizoFinanceiro.toFixed(2)} por ano.`;
+
+        let mensagem3 = `Com o ZYMOS, ${garrafasRecuperadas.toFixed(0)} garrafas poderiam ser recuperadas, gerando uma economia de R$ ${economiaFinanceira.toFixed(2)} por ano.`;
+
+        div_exibir.innerHTML = mensagem1 + "<br><br>" + mensagem2 + "<br><br>" + mensagem3;
+
+    }
+
+
+</script>
+
+</html>
