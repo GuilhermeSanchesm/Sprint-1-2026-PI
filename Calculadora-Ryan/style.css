@@ -1,0 +1,69 @@
+body {
+    background-color: #254567;
+    font-family: "Trebuchet MS", sans-serif;
+
+}
+
+.cartao-calculadora {
+    background-color: #ffffff;
+    border-radius: 12px;
+    width: 480px;
+    padding: 25px;
+    text-align: left;
+}
+
+.cabecalho {
+    margin: 20px;
+    text-align: center;
+}
+
+.cabecalho h1 {
+    color: #1e272e;
+    margin: 0;
+    font-size: 28px;
+}
+
+.campo-formulario {
+    margin: 10px;
+    font-size: 15px;
+    color: #2c3e50;
+}
+
+input {
+    font-family: "Trebuchet MS", sans-serif;
+    margin: 5px;
+    padding: 12px;
+    width: 95%;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+select {
+    font-family: "Trebuchet MS", sans-serif;
+    margin: 5px;
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    color: #2c3e50;
+}
+
+button {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 16px;
+    background-color: #f3a623;
+    color: white;
+    border-radius: 6px;
+    padding: 14px;
+    width: 100%;
+    margin: 15px;
+
+}
+
+#exibicao {
+    margin: 25px;
+    padding: 15px;
+    background-color: #fff5e6;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: left;
+}

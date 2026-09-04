@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de Desperdício</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- DIV 1: O bloco principal da calculadora (elemento pai) -->
+    <div class="cartao-calculadora">
+        
+        <!-- DIV 2: O topo com o título -->
+        <div class="cabecalho">
+            <h1>Cálculo de Desperdício</h1>
+        </div>
+        
+        <!-- DIV 3: Primeira pergunta -->
+        <div class="campo-formulario">
+            Selecione a família de cerveja produzida: <br>
+            <select id="select_familia">
+                <option value="lager">Lager</option>
+                <option value="ale">Ale</option>
+            </select> 
+        </div>
+        
+        <!-- DIV 4: Segunda pergunta -->
+        <div class="campo-formulario">
+            Insira a quantidade de litros que sua empresa produz: <br>
+            <input type="number" id="litros_ipt"> 
+        </div>
+        
+
+        <button onclick="calcular()">CALCULAR</button> 
+        
+        <!-- DIV 5: Onde o resultado vai aparecer -->
+        <div id="exibicao">Insira as informações para exibir o resultado</div>
+
+    </div>
+
+</body>
+
+<script>
+    function calcular() {
+        let litros = Number(litros_ipt.value);
+        let litros_perdidos = litros * 0.05;
+        let familia = select_familia.value; 
+
+        if (litros <= 0) {
+        alert("Por favor, insira uma quantidade de litros válida.");;
+        }
+        else if (familia == "lager") {
+            let litros_perdidos_valor = litros_perdidos * 15; 
+
+            exibicao.innerHTML = `Na macrofamília Lager, a temperatura ideal de fermentação é entre <b>8°C</b> e <b>14°C.</b>`;
+            exibicao.innerHTML += `<br><br>A quantidade de litros que são descartados é de aproximadamente 5%, sendo perdida a quantidade de <b>${litros_perdidos.toFixed(1)}</b> litros por falta de monitoramento adequado.`;
+            exibicao.innerHTML += `<br><br>Deixando de ganhar: <b>R$ ${litros_perdidos_valor.toFixed(2)}</b> da receita total.`;
+        }
+        else if (familia == "ale") {
+            let litros_perdidos_valor = litros_perdidos * 20; 
+
+            exibicao.innerHTML = `Na macrofamília Ale, a temperatura ideal de fermentação é entre <b>15°C</b> e <b>24°C.</b>`;
+            exibicao.innerHTML += `<br><br>A quantidade de litros que são descartados é de aproximadamente 5%, sendo perdida a quantidade de <b>${litros_perdidos.toFixed(1)}</b> litros por falta de monitoramento adequado.`;
+            exibicao.innerHTML += `<br><br>Deixando de ganhar: <b>R$ ${litros_perdidos_valor.toFixed(2)}</b> da receita total.`;
+        }
+    }
+</script>
+
+</html>
