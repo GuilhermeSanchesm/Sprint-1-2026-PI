@@ -17,12 +17,9 @@
         <option value="Lager">Lager</option>
     </select>
     <br>
-
-    <p>Vamos iniciar a sua simulação? Para isso preencha os campos abaixo:</p> <br>
-    <p>Quantidade de produção de cerveja anual (litros):<input type="text" id="ipt_qtd_litros_anuais"
-            placeholder="Digite aqui, ex: 100000"></p>
-    <p>Valor do seu litro vendido (R$):<input type="text" id="ipt_qtd_valor_litro" placeholder="Digite aqui, ex: 8.00">
-    </p>
+    <p>Vamos iniciar a sua simulação? Para isso preencha os campos abaixo:</p>
+    <p>Quantidade de produção de cerveja anual (litros):<input type="text" id="ipt_qtd_litros_anuais"placeholder="Digite aqui, ex: 100.000"></p>
+    <p>Valor do seu litro vendido (R$):<input type="text" id="ipt_qtd_valor_litro" placeholder="Digite aqui, ex: 8.00"></p>
     <p>Seu custo de produção por litro (R$) - essa pergunta é opcional:<input type="text" id="ipt_custo"
             placeholder="Digite aqui, ex: 1.60"></p>
 
@@ -39,14 +36,14 @@
         let valor_litro = 0;
         let custo_producao = 0;
 
-        // verifica campos
+        // verifica se os campos estão devidamente preenchidos
         if (ipt_qtd_litros_anuais.value.length == 0 || tipoCerveja == "0") {
             resultado.innerHTML = "<br> Há campos obrigatórios em branco. Por favor, preencha-os!";
         } else {
             let desperdicio_fixo = 0.05;
             let litros_perdidos = qtd_litros_anual * desperdicio_fixo;
 
-            // custo na produção
+            // custo na produção (caso não inserido é atribuído um valor padrão)
             if (ipt_custo.value.length == 0 && tipoCerveja == 'Lager') {
                 custo_producao = 2.5;  // custos baseados no BeerCast
             } else if (ipt_custo.value.length == 0 && tipoCerveja == 'Ale') {
@@ -55,7 +52,7 @@
                 custo_producao = Number(ipt_custo.value);
             }
 
-            // Validar valor do litro 
+            // Validar valor do litro (caso não inserido é atribuido um valor padrão)
             if (ipt_qtd_valor_litro.value.length == 0 && tipoCerveja == 'Lager') {
                 valor_litro = 7;                                // Valores comerciais das bebidas desse tipo
             } else if (ipt_qtd_valor_litro.value.length == 0 && tipoCerveja == 'Ale') {
@@ -69,12 +66,12 @@
             let faturamento_perdido = litros_perdidos * valor_litro;
             let valor_ganhos_total = qtd_litros_anual * valor_litro;
 
-            // Exibição no resultado
+            // Exibição do resultado
             resultado.innerHTML = `<br> Anualmente, você investe R$${valor_investido_producao.toFixed(2)} na sua produção de cerveja ${tipoCerveja}.<br> 
             Devido ao desperdício médio de 5% por falha de monitoramento, você perde cerca de <b>${litros_perdidos.toFixed(0)} litros</b> ao ano.<br>
-            Prejuízo direto em produção: R$${valor_perdido_producao.toFixed(2)}<br>
-            Faturamento perdido: R$${faturamento_perdido.toFixed(2)}<br>
-            Seu faturamento total seria de R$${valor_ganhos_total.toFixed(2)}.`;
+            Valor perdido na produção: R$${valor_perdido_producao.toFixed(2)}<br>
+            Faturamento total perdido: R$${faturamento_perdido.toFixed(2)}<br>
+            Seu faturamento poderia ser de R$${(valor_ganhos_total * 0.98).toFixed(2)}.`;
         }
     }
 </script>
