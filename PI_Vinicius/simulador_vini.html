@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Simulador financeiro</h1>
+    Quantos litros de cerveja sua industria produz? <br> <input type="text" id="ipt_litros"><br>
+    Selecione a cerveja produzida <br>
+    <select name="Selecione" id="sel_cerveja">Selecione a cerveja produzida <br>
+        <option value="erro">Selecione...</option>
+        <option value="lager"> Lager</option>
+        <option value="ale">Ale</option>
+    </select> <br>
+    <button onclick="simular()">Simular</button>
+    <div id="div_exibir"></div>
+
+</body>
+<script>
+    function simular(){
+        // alerta caso a quatidade de litros não seja inserido
+        if (ipt_litros.value.length == 0){
+            alert ("Insira um valor válido")
+        }
+        // alerta caso o tipo de cerveja não seja selecionado
+        if ( ipt_litros.value < 0){
+            alert ("Insira um valor válido")
+        }
+        // alerta caso o tipo de cerveja não seja selecionado
+        if (sel_cerveja.value == "erro"){
+            alert ("Selecione o tipo de cerveja")
+        }
+        
+        // transforma o input em número e faz as operações de preço
+        let litro = Number(ipt_litros.value);
+        let valor_lager = litro * 6;
+        let gasto_lager = valor_lager * 0.95;
+
+        let valor_ale = litro * 10;
+        let gasto_ale = valor_ale * 0.95;
+
+        // Operação dos litros perdidos
+        let litro_perdido = litro * 0.05;
+
+        //Litros e custos previnidos
+        let litro_prevenido = litro_perdido * 0.02;
+        let ale_prevevenido = gasto_ale * 0.02;
+        let lager_prevevenido = gasto_lager * 0.02;
+
+        
+        // exibe o resultado da cerveja ale
+        if (sel_cerveja.value == "ale"){
+            div_exibir.innerHTML = `Seu desperdicio é de R$${gasto_ale} e ${litro_perdido}L da produção total, com a nossa solução seu desperdicio diminuira para R$${ale_prevevenido} e ${litro_prevenido}L`;
+        }
+        // exibe o resultado da cerveja Lager 
+        else {
+             div_exibir.innerHTML = `Seu desperdicio é de R$${gasto_lager} e ${litro_perdido}L , com a nossa solução seu desperdicio diminuira R$${lager_prevevenido} e ${litro_prevenido}L`;
+        }
+
+        
+    }
+</script>
+</html>
