@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador Financeiro</title>
+  </head>
+  <body>
+    <label
+      >Insira a sua produção de cerveja anual (litros)
+      <span style="color: red">*</span></label
+    >
+    <br />
+    <input type="text" id="iptLitros" placeholder="Ex: 5000" />
+    <br /><br />
+
+    <label>Insira o seu desperdício de produção anual (litros)</label>
+    <br />
+    <input type="text" id="iptDesperdicio" placeholder="Ex: 250" />
+    <br />
+    <span style="color: gray"
+      >Na ausência do dado, será usado o desperdício médio de 5%</span
+    >
+    <br /><br />
+
+    <label
+      >Insira o seu preço p/embalagem (reais com ponto ".")
+      <span style="color: red">*</span></label
+    >
+    <br />
+    <input type="text" id="iptUnitEmbalagem" placeholder="Ex: R$ 10.00" />
+    <br /><br />
+
+    <button onclick="simular()">Simular</button>
+
+    <p id="exibirCenario"></p>
+    <p id="exibirPerdaEmpresa"></p>
+    <p id="exibirPrevencao"></p>
+  </body>
+</html>
+
+<script>
+  function simular() {
+    let taxaDesperdicio = 0.05;
+    let prevencaoEstimada = 0.98;
+    let embalagemGarrafa = 0.33;
+
+    let producaoLitros = Number(iptLitros.value);
+    let producaoDesperdicio = Number(iptDesperdicio.value);
+    let precoEmbalagem = Number(iptUnitEmbalagem.value);
+
+    let cenarioEmpresa = "";
+    let perdaEmpresa = "";
+    let prevencaoEvitavel = "";
+
+    if (producaoLitros == "") {
+      alert("Insira o valor da sua produção");
+    } else if (precoEmbalagem == "") {
+      alert("Insira o preço da embalagem");
+    } else if (producaoDesperdicio > 0) {
+      let embalemPerdida = (producaoDesperdicio / embalagemGarrafa).toFixed(0);
+      let dinheiroPerdido = (embalemPerdida * precoEmbalagem).toFixed(0);
+      let prevencaoLitros = (producaoDesperdicio * prevencaoEstimada).toFixed(
+        0,
+      );
+      let prevencaoDinheiro = (dinheiroPerdido * prevencaoEstimada).toFixed(0);
+      let prevencaoEmbalagem = (embalemPerdida * prevencaoEstimada).toFixed(0);
+
+      cenarioEmpresa = `No cenário atual, sua empresa tem uma perda de ${producaoDesperdicio} litros de cerveja por ano. <br>`;
+      perdaEmpresa = `Aproximadamente no valor de R$ ${dinheiroPerdido}, o equivalente a ${embalemPerdida} garrafas de 330 ml. <br>`;
+      prevencaoEvitavel = `Com a Zymos, sua empresa tem consciência dos problemas e pode intervir antes que ocorra o prejuízo. Nosso sistema tem uma eficácia estimada de ${prevencaoEstimada * 100}% na prevenção do descarte de cerveja. Ou seja, dos ${producaoDesperdicio} litros desperdiçados, aproximadamente ${prevencaoLitros} litros são evitados, o equivalente a ${prevencaoEmbalagem} das ${embalemPerdida} garrafas de 330 ml.`;
+    } else {
+      let desperdicioMedio = (producaoLitros * taxaDesperdicio).toFixed(0);
+      let embalemPerdida = (desperdicioMedio / embalagemGarrafa).toFixed(0);
+      let dinheiroPerdido = (embalemPerdida * precoEmbalagem).toFixed(0);
+      let prevencaoLitros = (desperdicioMedio * prevencaoEstimada).toFixed(0);
+      let prevencaoDinheiro = (dinheiroPerdido * prevencaoEstimada).toFixed(0);
+      let prevencaoEmbalagem = (embalemPerdida * prevencaoEstimada).toFixed(0);
+
+      cenarioEmpresa = `No cenário atual, sua empresa tem uma perda estimada de ${desperdicioMedio} litros de cerveja por ano. <br>`;
+      perdaEmpresa = `Aproximadamente no valor de R$ ${dinheiroPerdido}, o equivalente a ${embalemPerdida} garrafas de 330 ml. <br>`;
+      prevencaoEvitavel = `Com a Zymos, sua empresa tem consciência dos problemas e pode intervir antes que ocorra o prejuízo. Nosso sistema tem uma eficácia estimada de ${prevencaoEstimada * 100}% na prevenção do descarte de cerveja. Ou seja, dos ${desperdicioMedio} litros desperdiçados, aproximadamente ${prevencaoLitros} litros são evitados, o equivalente a ${prevencaoEmbalagem} das ${embalemPerdida} garrafas de 330 ml.`;
+    }
+
+    exibirCenario.innerHTML = cenarioEmpresa;
+    exibirPerdaEmpresa.innerHTML = perdaEmpresa;
+    exibirPrevencao.innerHTML = prevencaoEvitavel;
+  }
+</script>
