@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #254567;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  font-family: "Trebuchet MS", sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 30px 60px;
+  width: 50%;
+  gap: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content input, select {
+  padding: 10px;
+  margin-block: 10px;
+  border-radius: 8px;
+  border-style: none;
+  border: solid #254567 2px;
+  font-size: 15px;
+}
+
+.card-content h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.card-content label {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-content b {
+  color: red;
+}
+
+.card-container button {
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.ref {
+  margin-block: 100px;
+}

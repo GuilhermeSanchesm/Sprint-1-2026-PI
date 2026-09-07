@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador Financeiro</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main>
+      <div class="card-container">
+        <h1>Simulador Financeiro</h1>
+        
+        <div class="card-content">
+          <label>
+            Selecione o tipo de produção
+            <b>*</b>
+          </label>
+          <select id="sltTipoCerveja">
+              <option value="">Selecione</option>
+              <option value="Ale">Ale</option>
+              <option value="Lager">Lager</option>
+          </select>
+        </div>
+
+        <div class="card-content">
+          <label>
+            Insira sua produção de cerveja anual (litros)
+            <b>*</b>
+          </label>
+          <input type="number" id="iptLitros" placeholder="Ex: 5000" />
+        </div>
+      
+        <div class="card-content">
+          <label>
+            Insira seu desperdício de produção anual (litros)
+          </label>
+          <input type="number" id="iptDesperdicio" placeholder="Ex: 250" />
+          <span>Na ausência do dado, será usado o desperdício aproximado de 5%</span>
+        </div>
+        
+        <div class="card-content">
+          <label>
+            Insira seu preço de venda por litro (R$)
+            <b>*</b>
+          </label>
+          <input type="number" id="iptPrecoLitro" placeholder="Ex: R$ 15.00" />
+        </div>
+        
+        <div class="card-content">
+          <label>
+            Insira seu custo de produção (R$)
+            <b>*</b>
+          </label>
+          <input type="number" id="iptCustoProducao" placeholder="Ex: R$ 1.50" />
+        </div>
+        
+        <button onclick="simular()">Simular</button>
+
+        <div class="">
+          <div id="exibirCenario"></div>
+          <div id="exibirPrevencao"></div>
+        </div>
+      </div>
+      
+      <div class="ref">
+        <h1>Referências</h1>
+      </div>
+
+    </main>  
+  </body>
+</html>
+
+<script>
+  function simular() {
+    let taxaDesperdicio = 0.05;
+    let prevencaoEstimada = 0.98;
+
+    let cenarioEmpresa = "";
+    let prevencaoEvitavel = "";
+
+    let producaoLitros = Number(iptLitros.value);
+    let producaoDesperdicio = Number(iptDesperdicio.value);
+    let precoLitro = Number(iptPrecoLitro.value);
+    let custoProducao = Number(iptCustoProducao.value);
+    let tipoCerveja = sltTipoCerveja.value;
+
+    if (tipoCerveja == "") {
+      alert("Selecione o tipo da produção")
+    } else if (producaoLitros == "") {
+      alert("Insira o valor da produção");
+    } else if (precoLitro == "") {
+      alert("Insira o valor de venda por litro");
+    } else if (custoProducao == "") {
+      alert("Insira o custo de produção");
+    } else if (producaoDesperdicio > 0) {
+      let dinheiroPerdido = (producaoDesperdicio * precoLitro).toFixed(2);
+      let dinheiroProducao = (custoProducao * producaoDesperdicio).toFixed(0);
+      
+      let prevencaoLitros = (producaoDesperdicio * prevencaoEstimada).toFixed(0);
+      let prevencaoDinheiro = (dinheiroPerdido * prevencaoEstimada).toFixed(2);
+
+      cenarioEmpresa = `No cenário atual, sua empresa de fabricação de cerveja do tipo 
+      ${tipoCerveja} possui um desperdício de ${producaoDesperdicio} litros. O equivalente a
+      uma perda financeira no processo de produção de R$ ${dinheiroProducao}, gerando um prejuízo de 
+      produção de R$ ${dinheiroPerdido}.<br><br>`;
+            
+      prevencaoEvitavel = `Com a Zymos, sua empresa tem consciência dos problemas e pode 
+      intervir antes que ocorra o prejuízo.`;
+
+    } else {
+      let desperdicioMedio = (producaoLitros * taxaDesperdicio).toFixed(0);
+      
+      let dinheiroPerdido = (desperdicioMedio * precoLitro).toFixed(2);
+      let dinheiroProducao = (custoProducao * desperdicioMedio).toFixed(0);
+      
+      let prevencaoLitros = (desperdicioMedio * prevencaoEstimada).toFixed(0);
+      let prevencaoDinheiro = (dinheiroPerdido * prevencaoEstimada).toFixed(2);
+
+      cenarioEmpresa = `No cenário atual, sua empresa de fabricação de cerveja do tipo 
+      ${tipoCerveja} possui um desperdício de ${desperdicioMedio} litros. O equivalente a
+      uma perda financeira no processo de produção de R$ ${dinheiroProducao}, gerando um prejuízo de 
+      produção de R$ ${dinheiroPerdido}.<br><br>`;
+            
+      prevencaoEvitavel = `Com a Zymos, sua empresa tem consciência dos problemas e pode 
+      intervir antes que ocorra o prejuízo.`;
+    }
+
+    exibirCenario.innerHTML = cenarioEmpresa;
+    exibirPrevencao.innerHTML = prevencaoEvitavel;
+  }
+</script>
