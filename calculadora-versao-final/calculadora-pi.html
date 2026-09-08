@@ -1,11 +1,12 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulador Financeiro</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="../assets/logo-icon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -82,12 +83,11 @@
 
 </html>
 <script>
-  // Declaração da Função
+    // Declaração da Função
   function simular() {
 
-    // Declaração das variáveis 
+    // Declaração das variáveis locais
     let taxaDesperdicioPadrao = 0.05;
-    let prevencaoEstimada = 0.98;
 
     let producaoLitros = Number(iptLitros.value);
     let producaoDesperdicio = Number(iptDesperdicio.value);
@@ -95,7 +95,7 @@
     let custoProducao = Number(iptCustoProducao.value);
     let tipoCerveja = sltTipoCerveja.value;
 
-    // Verificação de campos
+    // Verificação de campos preenchidos
     if (tipoCerveja == "") {
       alert("Selecione o tipo da produção");
     } else if (producaoLitros == "") {
@@ -117,11 +117,7 @@
       // Operações aritméticas
       let dinheiroPerdido = (litrosDesperdiciados * precoLitro).toFixed(2); // Qtd. de dinheiro perdido
       let dinheiroProducao = (custoProducao * litrosDesperdiciados).toFixed(2); // Qtd. de dinheiro perdido na produção
-
-      let prevencaoLitros = (litrosDesperdiciados * prevencaoEstimada).toFixed(2); // Quantidade de dinheiro monitorado
-      let prevencaoDinheiro = (dinheiroPerdido * prevencaoEstimada).toFixed(2);
-
-      let porcentagemPerda = ((litrosDesperdiciados / producaoLitros) * 100).toFixed(1);
+      let porcentagemPerda = ((litrosDesperdiciados / producaoLitros) * 100).toFixed(1); // Porcentagem de perda em relação a produção total
 
       // Atribuição de saídas para os Cards
       let cenarioEmpresa = `
@@ -151,12 +147,12 @@
      Com a Zymos, sua empresa tem <span class = "destaque-positivo">consciência </span> das oscilações térmicas na etapa de fermentação e pode 
      <span class = "destaque-positivo"> intervir </span> antes que ocorra o prejuízo financeiro.
      </div><br>
+
      <div class = "card-contato">
-     <p>Estes valores te <span class="destaque-palavra">incomodam</span>?</p> <br>
+     <p>Estes valores te <span class="destaque-palavra">incomodam</span>?</p><br>
      <button>Entre em contato</button> </div>`; // Atribuição de saídas texto
 
       exibirCenario.innerHTML = cenarioEmpresa;
-    
     }
   };
 
