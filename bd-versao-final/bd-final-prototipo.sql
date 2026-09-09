@@ -6,7 +6,7 @@ USE zymos;
 CREATE TABLE empresa (
 	id_empresa INT PRIMARY KEY AUTO_INCREMENT,
     nome_empresa VARCHAR(100) NOT NULL,
-    cnpj CHAR(14) UNIQUE,
+    cnpj CHAR(14) UNIQUE NOT NULL,
     email_empresa VARCHAR(100) NOT NULL
 ); 
 
@@ -15,7 +15,7 @@ CREATE TABLE dorna (
 	id_dorna INT PRIMARY KEY AUTO_INCREMENT,
     capacidade INT NOT NULL,
     lote VARCHAR(15) NOT NULL,
-    status_dorna VARCHAR(15),
+    status_dorna VARCHAR(15) NOT NULL,
 	CONSTRAINT chkStatus_dorna CHECK (status_dorna IN ('Disponível', 'Em uso', 'Em limpeza', 'Manutenção', 'Indisponível'))
 );
 
@@ -52,10 +52,10 @@ CREATE TABLE lote (
 CREATE TABLE log (
     id_log INT PRIMARY KEY AUTO_INCREMENT,
     temperatura DECIMAL(3,1) NOT NULL,
-    sensor_responsavel INT,
+    sensor_responsavel INT NOT NULL,
     data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
     tipo_alerta VARCHAR(40),
-    lote_responsavel INT,
+    lote_responsavel INT NOT NULL,
     CONSTRAINT check_alerta CHECK (tipo_alerta IN ('Temperatura acima do ideal','Temperatura abaixo da ideal'))
 );
     
