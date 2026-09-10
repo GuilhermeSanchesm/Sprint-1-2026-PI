@@ -126,10 +126,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-.card {
-  display:flex;
-}
-
 
 .card-mensagem {
   margin-top: 30px;
@@ -158,7 +154,7 @@ h1 {
   background-color: #E8EFE6;
   color: #254567;
   border-radius: 5px;
-  width: 21%;
+  /* width: 21%; */
   height: 80px;
   padding: 8px;
   text-align: center;
